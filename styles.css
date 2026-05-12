@@ -696,6 +696,31 @@ main {
     font-weight: 600;
 }
 
+.source-group ul li a {
+    color: var(--color-secondary);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: color 0.2s, border-color 0.2s;
+}
+
+.source-group ul li a:hover {
+    color: var(--color-primary-dark);
+    border-bottom-color: var(--color-primary);
+}
+
+.source-group ul li a:hover strong {
+    color: var(--color-primary-dark);
+}
+
+.source-group ul li code {
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+    background: rgba(99, 102, 241, 0.08);
+    color: var(--color-accent);
+    padding: 2px 6px;
+    border-radius: 4px;
+}
+
 /* ============ AI CARDS ============ */
 .ai-cards {
     display: grid;
@@ -996,6 +1021,17 @@ main {
     color: rgba(255, 255, 255, 0.7);
     font-size: 0.93rem;
     line-height: 1.7;
+}
+
+.footer a {
+    color: var(--color-primary);
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.footer a:hover {
+    color: white;
+    text-decoration: underline;
 }
 
 .footer-bottom {
