@@ -10,6 +10,34 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 </head>
 <body>
+    <div class="countdown-bar" id="countdownBar" role="timer" aria-live="polite">
+        <div class="countdown-inner">
+            <span class="countdown-label">Sprint 01 — entrega em</span>
+            <div class="countdown-units">
+                <div class="countdown-unit">
+                    <span class="countdown-value" id="cd-days">--</span>
+                    <span class="countdown-unit-label">dias</span>
+                </div>
+                <span class="countdown-sep">:</span>
+                <div class="countdown-unit">
+                    <span class="countdown-value" id="cd-hours">--</span>
+                    <span class="countdown-unit-label">horas</span>
+                </div>
+                <span class="countdown-sep">:</span>
+                <div class="countdown-unit">
+                    <span class="countdown-value" id="cd-minutes">--</span>
+                    <span class="countdown-unit-label">min</span>
+                </div>
+                <span class="countdown-sep">:</span>
+                <div class="countdown-unit">
+                    <span class="countdown-value" id="cd-seconds">--</span>
+                    <span class="countdown-unit-label">seg</span>
+                </div>
+            </div>
+            <span class="countdown-deadline">21/06/2026 · 23:59</span>
+        </div>
+    </div>
+
     <header class="hero">
         <nav class="navbar">
             <div class="logo">
@@ -530,5 +558,53 @@
     </footer>
 
     <a href="#" class="back-to-top" aria-label="Voltar ao topo">↑</a>
+
+    <script>
+        (function () {
+            const deadline = new Date('2026-06-21T23:59:59-03:00').getTime();
+            const elDays = document.getElementById('cd-days');
+            const elHours = document.getElementById('cd-hours');
+            const elMinutes = document.getElementById('cd-minutes');
+            const elSeconds = document.getElementById('cd-seconds');
+            const bar = document.getElementById('countdownBar');
+
+            function pad(n) {
+                return String(n).padStart(2, '0');
+            }
+
+            function tick() {
+                const now = Date.now();
+                const diff = deadline - now;
+
+                if (diff <= 0) {
+                    elDays.textContent = '00';
+                    elHours.textContent = '00';
+                    elMinutes.textContent = '00';
+                    elSeconds.textContent = '00';
+                    bar.classList.add('countdown-expired');
+                    return;
+                }
+
+                const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+                const minutes = Math.floor((diff / (1000 * 60)) % 60);
+                const seconds = Math.floor((diff / 1000) % 60);
+
+                elDays.textContent = pad(days);
+                elHours.textContent = pad(hours);
+                elMinutes.textContent = pad(minutes);
+                elSeconds.textContent = pad(seconds);
+
+                if (days <= 3) {
+                    bar.classList.add('countdown-urgent');
+                } else if (days <= 7) {
+                    bar.classList.add('countdown-warning');
+                }
+            }
+
+            tick();
+            setInterval(tick, 1000);
+        })();
+    </script>
 </body>
 </html>
